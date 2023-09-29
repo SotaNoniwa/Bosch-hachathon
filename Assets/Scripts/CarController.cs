@@ -5,7 +5,10 @@ using System.IO;
 
 public class CarController : MonoBehaviour
 {
-    private float speed = 20.0f;
+    private float startTime = 33.2415f;
+    private float incrementTime = 0.05f;
+    public float delayAmout;
+    private float speed = 5.0f;
     private float turnSpeed = 45.0f;
     private float horizontalInput;
     private float forwardInput;
@@ -19,6 +22,14 @@ public class CarController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        startTime += Time.deltaTime;
+
+        if (startTime >= delayAmout)
+        {
+            startTime = 0f;
+            startTime
+        }
+
         horizontalInput = Input.GetAxis("Horizontal");
         forwardInput = Input.GetAxis("Vertical");
 
@@ -45,10 +56,10 @@ public class CarController : MonoBehaviour
             // string to variable
             var data_values = data_string.Split(",");
 
-            for (int i = 1; i < data_values.Length; i++)
-            {
-                Debug.Log("Value: " + data_values[i].ToString());
-            }
+            // for (int i = 1; i < data_values.Length; i++)
+            // {
+            //     Debug.Log("Value: " + data_values[i].ToString());
+            // }
         }
     }
 }
