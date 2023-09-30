@@ -56,7 +56,7 @@ public class CarController : MonoBehaviour
     void ReadCSVFile()
     {
         // reading file from location
-        StreamReader strReader = new StreamReader("DevelopmentData.xlsx - Sheet1.csv", FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        StreamReader strReader = new StreamReader("DevelopmentData.xlsx - Sheet1.csv");
         bool endOfFile = false;
 
         while (!endOfFile)
@@ -68,7 +68,6 @@ public class CarController : MonoBehaviour
                 endOfFile = true;
                 break;
             }
-
             // separate string by conma and store them to an array
             var data_values = data_string.Split(",");
 
