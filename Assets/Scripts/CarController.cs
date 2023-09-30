@@ -6,27 +6,40 @@ using System;
 
 public class CarController : MonoBehaviour
 {
-    private float startTime = 33.2415f;
+    private float startTime = 100f;
+    //33.2415f
     private float incrementTime = 0.05f;
     private int numOfRows = 428;
-    private int rowIndex = 1;
+    private int rowIndex = 1; // first row (index 0) is disregarded
     private float speed = 5.0f;
     private float turnSpeed = 45.0f;
     private float horizontalInput;
     private float forwardInput;
+    private float firstObjectDistanceX;
+    private float firstObjectDistanceY;
+    private float secondObjectDistanceX;
+    private float secondObjectDistanceY;
+    private float thirdObjectDistanceX;
+    private float thirdObjectDistanceY;
+    private float fourthObjectDistanceX;
+    private float fourthObjectDistanceY;
+    private float vehicleSpeed; // duplicate to speed variable
+    private float firstObjectSpeedX;
+    private float firstObjectSpeedY;
+    private float secondObjectSpeedX;
+    private float secondObjectSpeedY;
+    private float thirdObjectSpeedY;
+    private float thirdObjectSpeedX;
+    private float fourthObjectSpeedX;
+    private float fourthObjectSpeedY;
+    private float yawRate;
+    private float timeStamp;
     float[] floatValues = new float[20];
 
     // Start is called before the first frame update
     void Start()
     {
-        // ReadCSVFile();
-        ReadCSVLine(2);
         InvokeRepeating("incrementStartTime", 1.0f, 1.0f);
-
-        for (int i = 0; i < floatValues.Length; i++)
-        {
-            Debug.Log(floatValues[i]);
-        }
     }
 
     // Update is called once per frame
@@ -35,8 +48,25 @@ public class CarController : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
         forwardInput = Input.GetAxis("Vertical");
 
-        transform.Translate(Vector3.forward * Time.deltaTime * floatValues[1]);
-        transform.Rotate(Vector3.up, turnSpeed * Time.deltaTime * horizontalInput);
+        ReadCSVLine(rowIndex);
+
+        // 19 is the index for timeStamp data
+        // if startTime passes the timeStamp, we go to the next row data
+        if (floatValues[19] <= startTime)
+        {
+            rowIndex++;
+        }
+
+        // start from 2nd column thus i starts from 1 as well
+        for (int i = 1; i < floatValues.Length; i++)
+        {
+            Debug.Log(floatValues[i]);
+        }
+
+        // 9 is the index for vehicleSpeed data
+        transform.Translate(Vector3.forward * Time.deltaTime * floatValues[9] / 256); // move car forwards
+        // 18 is the index for yawRate data
+        transform.Rotate(Vector3.up, turnSpeed * Time.deltaTime * floatValues[18]);
         // ReadCSVFile();
     }
 
