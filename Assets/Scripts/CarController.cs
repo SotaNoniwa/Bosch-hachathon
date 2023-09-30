@@ -56,7 +56,7 @@ public class CarController : MonoBehaviour
     void ReadCSVFile()
     {
         // reading file from location
-        StreamReader strReader = new StreamReader("DevelopmentData.xlsx - Sheet1.csv", FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        StreamReader strReader = new StreamReader("DevelopmentData.xlsx - Sheet1.csv");
         bool endOfFile = false;
 
         while (!endOfFile)
