@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System;
 
 public class CarController : MonoBehaviour
 {
@@ -37,7 +38,8 @@ public class CarController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ReadCSVFile();
+        // ReadCSVFile();
+        ReadCSVLine(2);
         InvokeRepeating("incrementStartTime", 1.0f, 1.0f);
     }
 
@@ -53,10 +55,35 @@ public class CarController : MonoBehaviour
         // ReadCSVFile();
     }
 
+
+    public static void ReadCSVLine(int lineNumber)
+    {
+        string filePath = "DevelopmentData.xlsx - Sheet1.csv";
+
+        try
+        {
+            string[] lines = File.ReadAllLines(filePath);
+
+            if (lineNumber >= 0 && lineNumber < lines.Length)
+            {
+                string lineToRead = lines[lineNumber];
+                Debug.Log("Line " + lineNumber + ": " + lineToRead);
+            }
+            else
+            {
+                Debug.LogError("Invalid line number: " + lineNumber);
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("An error occurred: " + e.Message);
+        }
+    }
+
     void ReadCSVFile()
     {
         // reading file from location
-        StreamReader strReader = new StreamReader("DevelopmentData.xlsx - Sheet1.csv", FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        StreamReader strReader = new StreamReader("DevelopmentData.xlsx - Sheet1.csv");
         bool endOfFile = false;
 
         while (!endOfFile)
@@ -124,20 +151,32 @@ public class CarController : MonoBehaviour
                         thirdObjectSpeedX = floatData;
                         break;
                     case 15:
-                        fourthObjectSpeedX = floatData;
+                        thirdObjectSpeedY = floatData;
                         break;
                     case 16:
-                        fourthObjectSpeedY = floatData;
+                        fourthObjectSpeedX = floatData;
                         break;
                     case 17:
-                        yawRate = floatData;
+                        fourthObjectSpeedY = floatData;
                         break;
                     case 18:
+                        yawRate = floatData;
+                        break;
+                    case 19:
                         timeStamp = floatData;
                         break;
                     default:
                         break;
                 }
+
+                if (startTime >= timeStamp)
+                {
+                    Debug.Log("timeStamp: " + timeStamp);
+                    Debug.Log("timer: " + startTime);
+                    break;
+                }
+                Debug.Log("yawRate: " + yawRate);
+                // Debug.Log("timeStamp: " + timeStamp);
             }
         }
         rowIndex++;
@@ -146,7 +185,7 @@ public class CarController : MonoBehaviour
     private void incrementStartTime()
     {
         startTime += incrementTime;
-        Debug.Log("startTime: " + startTime);
+        // Debug.Log("startTime: " + startTime);
     }
 
 
