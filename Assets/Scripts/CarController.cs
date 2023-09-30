@@ -95,7 +95,6 @@ public class CarController : MonoBehaviour
                 endOfFile = true;
                 break;
             }
-
             // separate string by conma and store them to an array
             var data_values = data_string.Split(",");
 
