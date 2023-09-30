@@ -6,9 +6,10 @@ using System;
 
 public class CarController : MonoBehaviour
 {
-    private float startTime = 100f;
+    public float startTime = 33.2415f;
     //33.2415f
-    private float incrementTime = 0.05f;
+    //48.675925f
+    private float incrementTime = 0.5f;
     private int numOfRows = 428;
     private int rowIndex = 1; // first row (index 0) is disregarded
     private float speed = 5.0f;
@@ -34,7 +35,7 @@ public class CarController : MonoBehaviour
     private float fourthObjectSpeedY;
     private float yawRate;
     private float timeStamp;
-    float[] floatValues = new float[20];
+    public float[] floatValues = new float[20];
 
     // Start is called before the first frame update
     void Start()
