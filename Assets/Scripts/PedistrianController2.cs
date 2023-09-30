@@ -22,7 +22,7 @@ public class PedistrianController2 : MonoBehaviour
         speedX = Car.GetComponent<CarController>().floatValues[12] / 256;
         speedY = Car.GetComponent<CarController>().floatValues[13] / 256;
         var carPosX = Car.transform.position.x;
-        var carPosY = Car.transform.position.y;
+        var carPosY = -Car.transform.position.y;
         var carPosZ = Car.transform.position.z;
         Vector3 newPosition = new Vector3(distanceX, carPosY, distanceY);
         transform.position = Car.transform.position + newPosition;
